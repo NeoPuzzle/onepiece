@@ -40,12 +40,12 @@ class _ListCharactersState extends State<ListCharacters> {
             color: Color.fromARGB(255, 62, 62, 62),
           ),
           const SizedBox(height: 20),
-          blockCharacters("Luffy", 0xff21E295, "o1"),
-          blockCharacters("Brook", 0xff21E295, "o2"),
-          blockCharacters("Ace", 0xff21E295, "o3"),
-          blockCharacters("Hancock", 0xff21E295, "o4"),
-          blockCharacters("Robin", 0xff21E295, "o5"),
-          blockCharacters("Sanji", 0xff21E295, "o6"),
+          blockCharacters("Luffy", 0xffd5a308, "o1"),
+          blockCharacters("Brook", 0xff674ea7, "o2"),
+          blockCharacters("Ace", 0xffd77106, "o3"),
+          blockCharacters("Hancock", 0xffea9999, "o4"),
+          blockCharacters("Robin", 0xff134f5c, "o5"),
+          blockCharacters("Sanji", 0xffffd966, "o6"),
         ],
       ),
     );
@@ -79,7 +79,7 @@ class _ListCharactersState extends State<ListCharacters> {
   Widget blockCharacters(String name, int color, String image) {
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).push(MaterialPageRoute(builder: ((context) => const DetailingPage())));
+        Navigator.of(context).push(MaterialPageRoute(builder: (context) => DetailingPage(color: color, image: "assets/$image.png", name: name,)));
       },
       child: Container(
         margin: const EdgeInsets.only(bottom: 20),
@@ -108,7 +108,7 @@ class _ListCharactersState extends State<ListCharacters> {
                     borderRadius: BorderRadius.circular(20)
                   ),
                   padding: const EdgeInsets.all(8),
-                  child: Image.asset("assets/$image.png"),
+                  child: Hero(tag: color,child: Image.asset("assets/$image.png")),
                 ),
                 const SizedBox(width: 12,),
                 Text(name, style: const TextStyle(color: Colors.white, fontSize: 16),)
