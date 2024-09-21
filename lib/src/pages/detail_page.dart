@@ -5,6 +5,13 @@ class DetailingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      backgroundColor: Colors.black,
+      body: Container(
+        decoration: BoxDecoration(
+          // gradient: LinearGradient(colors: colors)
+        ),
+      ),
+    );
   }
 }
