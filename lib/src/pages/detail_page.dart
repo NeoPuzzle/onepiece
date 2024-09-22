@@ -96,20 +96,23 @@ class _DetailingPageState extends State<DetailingPage> {
             const Spacer(),
             FadeAnimations(
               intervalstart: 0.5,
-              child: Container(
-                width: double.infinity,
-                height: 50,
-                alignment: Alignment.center,
-                margin: const EdgeInsets.symmetric(horizontal: 8),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: Color(widget.color)
+              child: GestureDetector(
+                onTap:() => (Navigator.pop(context)),
+                child: Container(
+                  width: double.infinity,
+                  height: 50,
+                  alignment: Alignment.center,
+                  margin: const EdgeInsets.symmetric(horizontal: 8),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Color(widget.color)
+                  ),
+                  child: const Text("Volver", style: TextStyle(
+                    color: Colors.white60,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold
+                  ),),
                 ),
-                child: const Text("Volver", style: TextStyle(
-                  color: Colors.white60,
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold
-                ),),
               ),
             )
           ],
