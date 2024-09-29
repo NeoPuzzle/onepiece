@@ -15,10 +15,10 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 16, 16, 16),
-      body: const Column(
+      body: Column(
         children: <Widget>[
           HeaderWidget(),
-          ListCharacters()
+          const ListCharacters()
         ],
       ),
       floatingActionButton: FloatingActionButton(
