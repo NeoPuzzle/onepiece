@@ -1,4 +1,7 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:onepiece/src/api/api.service.dart';
+import 'package:onepiece/src/model/fruit.model.dart';
 import 'package:onepiece/src/pages/detail_page.dart';
 
 
@@ -10,56 +13,116 @@ class ListCharacters extends StatefulWidget {
 }
 
 class _ListCharactersState extends State<ListCharacters> {
+  late Future<List<Fruits>> futureFruits;
   double widthScreen =0;
   final titleStyleText = const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white);
+
+
+  @override
+  void initState() {
+    super.initState();
+    futureFruits = ApiService().fetchFruits();
+  }
+
+
   @override
   Widget build(BuildContext context) {
     widthScreen=MediaQuery.of(context).size.width-50;
     return Expanded(
-      child: ListView(
-        padding: const EdgeInsets.all(25),
-        children: [
-          Text("Portadas", style: titleStyleText,),
-          const SizedBox(height: 15,),
-          Row(
+      child: FutureBuilder<List<Fruits>>(
+        future: futureFruits,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Center(child: Text('Error: ${snapshot.error}'));
+          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+            return const Center(child: Text('No data available'));
+          } else {
+            return ListView(
+            padding: const EdgeInsets.all(25),
             children: [
-              blocksBackground("p1.jpeg", "Titulo", "2018"),
-              SizedBox(
-                width: widthScreen*0.03,
-              ),
-              blocksBackground("p2.jpg", "Titulo", "2022"),
-              SizedBox(
-                width: widthScreen*0.03,
-              ),
-              blocksBackground("p3.jpg", "Titulo", "2024"),
-              
-            ],
+              Text("Portadas", style: titleStyleText,),
+              const SizedBox(height: 15,),
+              CarouselSlider(
+                options: CarouselOptions(
+                  height: 200,
+                  enlargeCenterPage: true,
+                  enableInfiniteScroll: false,
+                  autoPlay: true,
+                  viewportFraction: 0.8
+                ),
+                items:snapshot.data!.map((fruit) {
+                return Builder(
+                  builder: (BuildContext context) {
+                  return Container(
+                    width: widthScreen * .8,
+                    child: blocksBackground(
+                        fruit.filename!, 
+                        fruit.name!, 
+                        fruit.type!
+                        ),
+                    );
+                },
+              );
+            }).toList(),
           ),
-          const Divider(
-            thickness: 1,
-            color: Color.fromARGB(255, 62, 62, 62),
-          ),
-          const SizedBox(height: 20),
-          blockCharacters("Luffy", 0xffd5a308, "o1"),
-          blockCharacters("Brook", 0xff674ea7, "o2"),
-          blockCharacters("Ace", 0xffd77106, "o3"),
-          blockCharacters("Hancock", 0xffea9999, "o4"),
-          blockCharacters("Robin", 0xff134f5c, "o5"),
-          blockCharacters("Sanji", 0xffffd966, "o6"),
-        ],
+            const Divider(
+              thickness: 1,
+              color: Color.fromARGB(255, 62, 62, 62),
+            ),
+            const SizedBox(height: 20),
+            blockCharacters("Luffy", 0xffd5a308, "o1"),
+            blockCharacters("Brook", 0xff674ea7, "o2"),
+            blockCharacters("Ace", 0xffd77106, "o3"),
+            blockCharacters("Hancock", 0xffea9999, "o4"),
+            blockCharacters("Robin", 0xff134f5c, "o5"),
+            blockCharacters("Sanji", 0xffffd966, "o6"),
+          ],
+        );
+        }
+        }
       ),
     );
   }
   Widget blocksBackground (String image, String title, String subtitle) {
+    bool isValidUrl = Uri.tryParse(image)?.hasScheme ?? false;
+
     return Column(
       children: [
         ClipRRect(
           borderRadius: BorderRadius.circular(18),
-          child: Image.asset("assets/$image", 
-          width: widthScreen*.31,
-          height: 110,
-          fit: BoxFit.cover,),
-          
+          child: isValidUrl
+          ? Image.network(
+            image, 
+            width: widthScreen*.31,
+            height: 110,
+            fit: BoxFit.fill,
+            errorBuilder: (context, error, stackTrace) {
+              return Container(
+                width: widthScreen * 0.31,
+                height: 110,
+                decoration: BoxDecoration(
+                  color: Colors.grey,
+                  borderRadius: BorderRadius.circular(18),
+                ),
+                child: const Center(
+                  child: Icon(Icons.image_not_supported, color: Colors.white,),
+                ),
+              );
+            },
+          )
+          : Container(
+            width: widthScreen * 0.31,
+            height: 110,
+            decoration: BoxDecoration(
+              color: Colors.grey,
+                  borderRadius: BorderRadius.circular(18),
+                ),
+                child: const Center(
+                  child: Icon(Icons.image_not_supported, color: Colors.white,),
+                ),
+              ),
         ),
         const SizedBox(
             height: 15,
@@ -68,10 +131,11 @@ class _ListCharactersState extends State<ListCharacters> {
             text: title, style: const TextStyle(color: Colors.white70, fontSize: 14),
             children: [
               TextSpan(
-                text: subtitle, style: const TextStyle(color: Colors.grey,fontWeight: FontWeight.w300, fontSize: 12)
-              )
-            ]
-          ))
+                text: ': $subtitle', style: const TextStyle(color: Colors.grey,fontWeight: FontWeight.w300, fontSize: 12)
+              ),
+            ],
+          ),
+        ),
       ],
     );
   }

@@ -23,7 +23,7 @@ class _DetailingPageState extends State<DetailingPage> {
     return Scaffold(
       backgroundColor: Colors.black,
       body: Container(
-        padding: EdgeInsets.symmetric(vertical: 8),
+        padding: const EdgeInsets.symmetric(vertical: 8),
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [Color(widget.color),Colors.black],

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:onepiece/src/pages/listtest.dart';
 import 'package:onepiece/src/widgets/header_widget.dart';
 import 'package:onepiece/src/widgets/list_widget.dart';
 
@@ -22,7 +23,9 @@ class _HomeState extends State<Home> {
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: const Color.fromARGB(255, 95, 25, 208),
-        onPressed: (){},
+        onPressed: (){
+          Navigator.push(context, MaterialPageRoute(builder: (context) => CharactersList()));
+        },
         child: const Icon(Icons.add),
         ),
     );
