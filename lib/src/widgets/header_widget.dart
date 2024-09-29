@@ -98,7 +98,7 @@ class HeaderWidget extends StatelessWidget {
       try {
         final response = await apiService.fetchCharacterByName(name);
         if (response.isNotEmpty) {
-          _showResultsDialog(response, context);
+          _showWantedPosterDialog(response, context);
         } else {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text("No se encuentran los resultados")),
@@ -116,7 +116,7 @@ class HeaderWidget extends StatelessWidget {
     }
   }
 
-  void _showResultsDialog(List<OnePieceCharacter> results, BuildContext context) {
+  void _showWantedPosterDialog(List<OnePieceCharacter> results, BuildContext context) {
 
     final character = results.first;
 
@@ -124,25 +124,29 @@ class HeaderWidget extends StatelessWidget {
       context: context, 
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text("wanted"),
+          backgroundColor: const Color.fromARGB(255, 206, 161, 64),
+          title: const Center(child: Text("WANTED", style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold))),
           content: SizedBox(
             width: double.maxFinite,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(character.name!),
-                Text(character.bounty!),
-                Text(character.crew?.name ?? 'Sin crew'),
-                Text(character.fruit?.name ?? 'Sin fruta'),
-                Text(character.job!),
-                Text(character.status!),
+                const Text('DEAD OR ALIVE', style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold)),
+                Text(character.name ?? 'Desconocido',style: const TextStyle(fontSize: 18)),
+                Text("₿${character.bounty ?? 'Sin recompensa'}",style: const TextStyle(fontSize: 18)),
+                Text(character.crew?.name ?? 'Sin crew',style: const TextStyle(fontSize: 18)),
+                Text(character.fruit?.name ?? 'Sin fruta',style: const TextStyle(fontSize: 18)),
+                Text(character.job ?? 'vago',style: const TextStyle(fontSize: 18)),
+                Text(character.status ?? 'NN',style: const TextStyle(fontSize: 18)),
+                const SizedBox(height: 10),
               ],
             ),
           ),
           actions: <Widget>[
             TextButton(
               onPressed: (){
+                Navigator.of(context).pop();
                 Navigator.of(context).pop();
               }, 
               child: const Text("Cerrar")
