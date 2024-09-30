@@ -39,9 +39,54 @@ class _CharactersListState extends State<CharactersList> {
             itemCount: characters.length,
             itemBuilder: (context, index) {
               final character = characters[index];
-              return ListTile(
-                title: Text(character.name ?? 'Unknown'),
-                subtitle: Text(character.job ?? 'No job'),
+              return Card(
+                margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                elevation: 4,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                color: const Color.fromARGB(255, 195, 140, 37),
+                child: Padding(padding: const EdgeInsets.all(16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text('DEAD OR ALIVE',
+                      style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                      ),
+                      const SizedBox(height: 8,),
+                      Text(
+                        character.name ?? 'Desconocido',
+                        style: const TextStyle(fontSize: 18),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        "₿${character.bounty ?? 'Sin recompensa'}",
+                        style: const TextStyle(fontSize: 18),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        character.crew?.name ?? 'Sin crew',
+                        style: const TextStyle(fontSize: 18),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        character.fruit?.name ?? 'Sin fruta',
+                        style: const TextStyle(fontSize: 18),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        character.job ?? 'Vago',
+                        style: const TextStyle(fontSize: 18),
+                        ),
+                      const SizedBox(height: 4),
+                      Text(
+                        character.status ?? 'NN',
+                        style: const TextStyle(fontSize: 18),
+                      ),
+                    ],
+                  ),
+                
+                ),
               );
             },
           );
