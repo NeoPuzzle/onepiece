@@ -24,7 +24,7 @@ class _HomeState extends State<Home> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: const Color.fromARGB(255, 95, 25, 208),
         onPressed: (){
-          Navigator.push(context, MaterialPageRoute(builder: (context) => CharactersList()));
+          Navigator.push(context, MaterialPageRoute(builder: (context) => const CharactersList()));
         },
         child: const Icon(Icons.add),
         ),

@@ -42,7 +42,7 @@ class _ListCharactersState extends State<ListCharacters> {
             return ListView(
             padding: const EdgeInsets.all(25),
             children: [
-              Text("Portadas", style: titleStyleText,),
+              Text("Akuma No Mi", style: titleStyleText,),
               const SizedBox(height: 15,),
               CarouselSlider(
                 options: CarouselOptions(
@@ -72,12 +72,21 @@ class _ListCharactersState extends State<ListCharacters> {
               color: Color.fromARGB(255, 62, 62, 62),
             ),
             const SizedBox(height: 20),
-            blockCharacters("Luffy", 0xffd5a308, "o1"),
+            blockCharacters("Monkie D. Luffy", 0xffd5a308, "o1"),
             blockCharacters("Brook", 0xff674ea7, "o2"),
-            blockCharacters("Ace", 0xffd77106, "o3"),
-            blockCharacters("Hancock", 0xffea9999, "o4"),
-            blockCharacters("Robin", 0xff134f5c, "o5"),
-            blockCharacters("Sanji", 0xffffd966, "o6"),
+            blockCharacters("Portgas D. Ace", 0xffd77106, "o3"),
+            blockCharacters("Boa Hancock", 0xffea9999, "o4"),
+            blockCharacters("Nico Robin", 0xff134f5c, "o5"),
+            blockCharacters("Vinksmoke Sanji", 0xffffd966, "o6"),
+            blockCharacters("Ronoroa Zoro", 0xff00a86b, "o7"),
+            blockCharacters("Tony Tony Chopper", 0xffbf967e, "o9"),
+            blockCharacters("God Ussop", 0xffffa900, "o10"),
+            blockCharacters("Gimbe", 0xff0000ff, "o11"),
+            blockCharacters("Sabo", 0xffd77106, "o12"),
+            blockCharacters("Bon Clay", 0xffe57dba, "o13"),
+            blockCharacters("Shanks", 0xffcc0000, "o14"),
+            blockCharacters("Gold D. Roger", 0xff8a1e1e, "o15"),
+            blockCharacters("Nami", 0xffff9900, "o8")
           ],
         );
         }
